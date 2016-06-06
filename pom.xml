@@ -34,6 +34,14 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+    
+    <distributionManagement>
+      <repository>
+         <id>SpringStockDeploy</id>
+         <name>Release repository</name>
+         <url>http://localhost:4848/SpringStock</url>
+      </repository>
+   </distributionManagement>
 
     <build>
         <plugins>
