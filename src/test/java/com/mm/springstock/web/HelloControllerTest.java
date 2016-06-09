@@ -11,7 +11,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,7 +48,7 @@ public class HelloControllerTest {
         HttpServletRequest request = null;
         HttpServletResponse response = null;
         HelloController instance = new HelloController();
-        String expResult = "hello.jsp";
+        String expResult = "hello";
         ModelAndView result = instance.handleRequest(request, response);
         assertEquals(expResult, result.getViewName());
         // TODO review the generated test code and remove the default call to fail.

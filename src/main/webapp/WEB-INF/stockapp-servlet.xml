@@ -25,17 +25,17 @@
     </bean>
 
     <bean id="viewResolver"
-          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/WEB-INF/jsp/"
-          p:suffix=".jsp" />
+              class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+              p:prefix="/WEB-INF/jsp/"
+              p:suffix=".jsp" />
 
     <!--
     The index controller.
     -->
     <bean name="indexController"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="index" />
+              class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+              p:viewName="index" />
     
-    <bean name="/hello.htm" class="com.mm.springstock.web.HelloController" />
+    <bean class="com.mm.springstock.web.HelloController" />
 
 </beans>
