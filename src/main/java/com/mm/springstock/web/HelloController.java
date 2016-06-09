@@ -6,6 +6,7 @@
 package com.mm.springstock.web;
 
 import java.io.IOException;
+import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,8 @@ public class HelloController implements Controller
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        logger.info("Returning hello view");
-        return new ModelAndView("hello");
+        String now = Calendar.getInstance().getTime().toString();
+        logger.info("Returning hello view with " + now);
+        return new ModelAndView("hello", "now", now);
     }
 }

@@ -47,10 +47,13 @@ public class HelloControllerTest {
         System.out.println("handleRequest");
         HttpServletRequest request = null;
         HttpServletResponse response = null;
-        HelloController instance = new HelloController();
+        HelloController controller = new HelloController();
         String expResult = "hello";
-        ModelAndView result = instance.handleRequest(request, response);
-        assertEquals(expResult, result.getViewName());
+        ModelAndView modelAndView = controller.handleRequest(request, response);
+        assertEquals(expResult, modelAndView.getViewName());
+        assertNotNull(modelAndView.getModel());
+        String nowValue = (String) modelAndView.getModel().get("now");
+        assertNotNull(nowValue);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
