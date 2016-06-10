@@ -27,6 +27,7 @@ public class SimpleProductManagerTest {
     private static final Double TABLE_PRICE = 150.10;
     private static final String CHAIR_DESCRIPTION = "Chair";
     private static final String TABLE_DESCRIPTION = "Table";
+    private static final Integer INCREASE_PRICE_PERCENTAGE = 15;
     private List<Product> products;
     
     public SimpleProductManagerTest() 
@@ -72,13 +73,57 @@ public class SimpleProductManagerTest {
     @Test
     public void testGetProducts()
     {
-        assertNotNull(this.sPM.getProducts());
-        assertEquals(this.sPM.getProducts().size(), PRODUCT_COUNT.intValue());
-        Product chair = this.sPM.getProducts().get(0); // Chair
-        assertEquals(chair.getDescription(), CHAIR_DESCRIPTION);
-        assertEquals(chair.getPrice(), CHAIR_PRICE);
-        Product table = this.sPM.getProducts().get(1); // Table
-        assertEquals(table.getDescription(), TABLE_DESCRIPTION);
-        assertEquals(table.getPrice(), TABLE_PRICE);
+        try
+        {
+            assertNotNull(this.sPM.getProducts());
+            assertEquals(this.sPM.getProducts().size(), PRODUCT_COUNT.intValue());
+            Product chair = this.sPM.getProducts().get(0); // Chair
+            assertEquals(chair.getDescription(), CHAIR_DESCRIPTION);
+            assertEquals(chair.getPrice(), CHAIR_PRICE);
+            Product table = this.sPM.getProducts().get(1); // Table
+            assertEquals(table.getDescription(), TABLE_DESCRIPTION);
+            assertEquals(table.getPrice(), TABLE_PRICE);
+        } catch(Exception e)
+        {
+            fail(this.getClass().getName() + " " + e.getMessage());
+        }
+    }
+    
+    @Test
+    public void testIncreasePriceWithNullProducts()
+    {
+        try
+        {
+            this.sPM = new SimpleProductManager();
+            this.sPM.increasePrice(INCREASE_PRICE_PERCENTAGE);
+        } catch(NullPointerException nPE)
+        {
+            fail(this.getClass().getName() + " Product List is null");
+        }
+    }
+    
+    @Test
+    public void testIncreasePriceWithEmptyList()
+    {
+        try
+        {
+            this.sPM.getProducts().clear();
+            this.sPM.increasePrice(INCREASE_PRICE_PERCENTAGE);
+        } catch(Exception e)
+        {
+            fail(this.getClass().getName() + " Product List is empty");
+        }
+    }
+    
+    @Test
+    public void testIncreasePrice()
+    {
+        Double expectedChairPrice = CHAIR_PRICE*(100 + INCREASE_PRICE_PERCENTAGE)/100;
+        Double expectedTablePrice = TABLE_PRICE*(100 + INCREASE_PRICE_PERCENTAGE)/100;
+        this.sPM.increasePrice(INCREASE_PRICE_PERCENTAGE);
+        Product chair = this.sPM.getProducts().get(0);
+        assertEquals(chair.getPrice(), expectedChairPrice);
+        Product table = this.sPM.getProducts().get(1);
+        assertEquals(table.getPrice(), expectedTablePrice);
     }
 }

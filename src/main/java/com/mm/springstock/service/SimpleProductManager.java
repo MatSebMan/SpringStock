@@ -21,10 +21,17 @@ public class SimpleProductManager implements ProductManager
     public SimpleProductManager(){}
     
     @Override
-    public void increasePrice(int percentage) {
-        for (Product product : this.products)
+    public void increasePrice(int percentage) 
+    {
+        if (this.products != null)
         {
-            product.setPrice(product.getPrice()*percentage/100);
+            for (Product product : this.products)
+            {
+                if (product.getPrice() != null)
+                {
+                    product.setPrice(product.getPrice()*(100 + percentage)/100);
+                }
+            }
         }
     }
 
