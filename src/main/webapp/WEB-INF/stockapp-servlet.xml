@@ -25,17 +25,43 @@
     </bean>
 
     <bean id="viewResolver"
-              class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-              p:prefix="/WEB-INF/jsp/"
-              p:suffix=".jsp" />
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" />
 
     <!--
     The index controller.
     -->
     <bean name="indexController"
-              class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-              p:viewName="index" />
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="index" />
     
-    <bean class="com.mm.springstock.web.InventoryController" />
+    <bean class="com.mm.springstock.web.InventoryController">
+        <property name="pM" ref="productManager"/>
+    </bean>
+    
+    <bean id="productManager" class="com.mm.springstock.service.SimpleProductManager">
+        <property name="products">
+            <list>
+                <ref bean="product1"/>
+                <ref bean="product2"/>
+                <ref bean="product3"/>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="product1" class="com.mm.springstock.domain.Product">
+        <property name="description" value="Lamp"/>
+        <property name="price" value="5.75"/>
+    </bean>
 
+    <bean id="product2" class="com.mm.springstock.domain.Product">
+        <property name="description" value="Table"/>
+        <property name="price" value="75.25"/>
+    </bean>
+    
+    <bean id="product3" class="com.mm.springstock.domain.Product">
+        <property name="description" value="Chair"/>
+        <property name="price" value="22.79"/>
+    </bean>
 </beans>
