@@ -36,6 +36,6 @@
               class="org.springframework.web.servlet.mvc.ParameterizableViewController"
               p:viewName="index" />
     
-    <bean class="com.mm.springstock.web.HelloController" />
+    <bean class="com.mm.springstock.web.InventoryController" />
 
 </beans>

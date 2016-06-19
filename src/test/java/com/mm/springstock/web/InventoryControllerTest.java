@@ -5,6 +5,8 @@
  */
 package com.mm.springstock.web;
 
+import com.mm.springstock.service.SimpleProductManager;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.After;
@@ -12,15 +14,16 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
+import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
  * @author matse
  */
-public class HelloControllerTest {
+public class InventoryControllerTest {
     
-    public HelloControllerTest() {
+    public InventoryControllerTest() {
     }
     
     @BeforeClass
@@ -40,22 +43,43 @@ public class HelloControllerTest {
     }
 
     /**
-     * Test of handleRequest method, of class HelloController.
+     * Test of handleRequest method, of class InventoryController.
+     * @throws java.lang.Exception
      */
-    @org.junit.Test
+    @Test
     public void testHandleRequest() throws Exception {
         System.out.println("handleRequest");
         HttpServletRequest request = null;
         HttpServletResponse response = null;
-        HelloController controller = new HelloController();
+        InventoryController controller = new InventoryController();
+        controller.setpM(new SimpleProductManager());
         String expResult = "hello";
         ModelAndView modelAndView = controller.handleRequest(request, response);
         assertEquals(expResult, modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());
-        String nowValue = (String) modelAndView.getModel().get("now");
+        HashMap<String, Object> model = (HashMap<String, Object>) modelAndView.getModel().get("model");
+        String nowValue = (String) model.get("now");
         assertNotNull(nowValue);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+    }
+    
+    @Test
+    public void testGetPm()
+    {
+        System.out.println("getPm");
+        InventoryController iC = new InventoryController();
+        SimpleProductManager sPM = new SimpleProductManager();
+        iC.setpM(sPM);
+        assertEquals(iC.getpM(), sPM);
+    }
+    
+    @Test
+    public void testSetPm()
+    {
+        System.out.println("setPm");
+        InventoryController iC = new InventoryController();
+        SimpleProductManager sPM = new SimpleProductManager();
+        iC.setpM(sPM);
+        assertEquals(iC.getpM(), sPM);
     }
     
 }

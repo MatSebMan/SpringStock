@@ -44,6 +44,7 @@ public class Product implements Serializable
         this.price = price;
     }
     
+    @Override
     public String toString()
     {
         return "Description: " + this.description + "; Price: " + this.price;

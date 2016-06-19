@@ -18,7 +18,13 @@ import static org.junit.Assert.*;
  */
 public class ProductTest {
     
-    public ProductTest() {
+    private static final String CHAIR_DESCRIPTION = "Chair";
+    private static final Double CHAIR_PRICE = 20.50;
+    private Product product;
+    
+    public ProductTest() 
+    {
+        
     }
     
     @BeforeClass
@@ -30,7 +36,11 @@ public class ProductTest {
     }
     
     @Before
-    public void setUp() {
+    public void setUp() 
+    {
+        this.product = new Product();
+        this.product.setDescription(CHAIR_DESCRIPTION);
+        this.product.setPrice(CHAIR_PRICE);
     }
     
     @After
@@ -44,7 +54,7 @@ public class ProductTest {
     public void testGetDescription() {
         System.out.println("getDescription");
         Product instance = new Product();
-        String expResult = "Verde";
+        String expResult = CHAIR_DESCRIPTION;
         instance.setDescription(expResult);
         String result = instance.getDescription();
         assertEquals(expResult, result);
@@ -56,7 +66,7 @@ public class ProductTest {
     @Test
     public void testSetDescription() {
         System.out.println("setDescription");
-        String description = "Verde";
+        String description = CHAIR_DESCRIPTION;
         Product instance = new Product();
         instance.setDescription(description);
         assertEquals(instance.getDescription(), description);
@@ -69,7 +79,7 @@ public class ProductTest {
     public void testGetPrice() {
         System.out.println("getPrice");
         Product instance = new Product();
-        Double expResult = 4.5;
+        Double expResult = CHAIR_PRICE;
         instance.setPrice(expResult);
         Double result = instance.getPrice();
         assertEquals(expResult, result);
@@ -81,10 +91,15 @@ public class ProductTest {
     @Test
     public void testSetPrice() {
         System.out.println("setPrice");
-        Double price = 4.5;
+        Double price = CHAIR_PRICE;
         Product instance = new Product();
         instance.setPrice(price);
         assertEquals(instance.getPrice(), price);
     }
     
+    @Test
+    public void testToString()
+    {
+        assertEquals(product.toString(), "Description: " + CHAIR_DESCRIPTION + "; Price: " + CHAIR_PRICE);
+    }
 }

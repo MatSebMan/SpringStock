@@ -5,8 +5,10 @@
  */
 package com.mm.springstock.web;
 
+import com.mm.springstock.service.ProductManager;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +21,10 @@ import org.springframework.web.servlet.mvc.Controller;
  *
  * @author matse
  */
-public class HelloController implements Controller 
+public class InventoryController implements Controller 
 {
+    
+    private ProductManager pM;
 
     protected final Log logger = LogFactory.getLog(getClass());
 
@@ -28,7 +32,24 @@ public class HelloController implements Controller
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         String now = Calendar.getInstance().getTime().toString();
+        HashMap<String, Object> model = new HashMap<>();
+        model.put("now", now);
+        model.put("products", this.pM.getProducts());
         logger.info("Returning hello view with " + now);
-        return new ModelAndView("hello", "now", now);
+        return new ModelAndView("hello", "model", model);
+    }
+
+    /**
+     * @return the pM
+     */
+    public ProductManager getpM() {
+        return this.pM;
+    }
+
+    /**
+     * @param pM the pM to set
+     */
+    public void setpM(ProductManager pM) {
+        this.pM = pM;
     }
 }
